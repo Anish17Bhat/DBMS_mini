@@ -18,6 +18,21 @@ function MyBookings() {
     fetchBookings();
   }, []);
 
+  const cancelBooking = async (bookingId) => {
+    const confirmCancel = window.confirm("Are you sure you want to cancel this booking?");
+    if (!confirmCancel) return;
+
+    try {
+      await api.delete(`/bookings/${bookingId}`);
+      setBookings(bookings.filter(b => b.booking_id !== bookingId));
+      alert('Booking cancelled successfully!');
+    } catch (err) {
+      console.error('Failed to cancel booking:', err);
+      alert('Failed to cancel booking');
+    }
+  };
+
+
   return (
     <div>
       <h2>My Bookings</h2>
@@ -30,6 +45,7 @@ function MyBookings() {
             <p><strong>Check-in:</strong> {b.check_in_date}</p>
             <p><strong>Check-out:</strong> {b.check_out_date}</p>
             <p><strong>Total:</strong> ₹{b.total_amt}</p>
+            <button onClick={()=>cancelBooking(b.booking_id)}>Cancel Booking</button>
           </div>
         ))
       )}

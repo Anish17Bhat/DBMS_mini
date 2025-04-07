@@ -1,10 +1,17 @@
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import api from '../api';
 
 function Dashboard() {
   const [user, setUser] = useState(null);
   const [properties, setProperties] = useState([]);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -42,6 +49,7 @@ function Dashboard() {
   return (
     <div style={{ padding: '20px' }}>
       <h2>Dashboard</h2>
+      <button onClick={handleLogout}>Logout</button>
       {user ? (
         <>
           <p><strong>Welcome, {user.name}</strong></p>
