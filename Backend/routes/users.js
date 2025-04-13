@@ -5,7 +5,7 @@ const router = express.Router();
 const db = require('../db');
 const { authenticateToken } = require('../middleware/auth');
 
-// ✅ Register
+//Register
 router.post('/register', async (req, res) => {
   const { name, email, phone, password, role } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
   });
 });
 
-// ✅ Login
+// Login
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
   db.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
@@ -38,7 +38,7 @@ router.post('/login', (req, res) => {
   });
 });
 
-// ✅ Get Current User
+//Get Current User
 router.get('/me', authenticateToken, (req, res) => {
   const userId = req.user.user_id;
 
@@ -52,7 +52,7 @@ router.get('/me', authenticateToken, (req, res) => {
   });
 });
 
-// ✅ Public: List all users (optional)
+// Public: List all users
 router.get('/', (req, res) => {
   db.query('SELECT id, name, email, phone, role FROM users', (err, results) => {
     if (err) return res.status(500).send({ message: 'Database error', error: err });

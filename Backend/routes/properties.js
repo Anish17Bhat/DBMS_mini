@@ -25,7 +25,7 @@ router.post('/', authenticateToken, authorizeRole("host"), (req, res) => {
 
 // Get all properties for the currently logged-in host
 router.get('/dashboard', authenticateToken, (req, res) => {
-  const userId = req.user.user_id; // ✅ Corrected from req.user.id
+  const userId = req.user.user_id; 
 
   const sql = 'SELECT * FROM properties WHERE user_id = ?';
   db.query(sql, [userId], (err, results) => {
@@ -84,3 +84,13 @@ router.get('/', (req, res) => {
 });
 
 module.exports = router;
+
+// Get property by ID
+router.get('/:id', (req, res) => {
+  const property_id = req.params.id;
+  db.query('SELECT * FROM property WHERE property_id = ?', [property_id], (err, results) => {
+    if (err) return res.status(500).send(err);
+    if (results.length === 0) return res.status(404).send({ message: 'Property not found' });
+    res.send(results[0]);
+  });
+});

@@ -1,13 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import api from '../api';
 
-function ReviewForm() {
+function ReviewForm({ bookingId, onSuccess }) {
   const [form, setForm] = useState({
-    booking_id: '',
     rating: '',
     comment: '',
     date: ''
   });
+
+  useEffect(() => {
+    const today = new Date().toISOString().split('T')[0];
+    setForm((prev) => ({ ...prev, date: today }));
+  }, []);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -16,21 +20,43 @@ function ReviewForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post('/reviews', form);
+      await api.post('/reviews', {
+        booking_id: bookingId,
+        ...form
+      });
       alert('Review submitted!');
+      onSuccess();
     } catch (err) {
+      console.error(err);
       alert('Failed to submit review');
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Submit Review</h2>
-      <input type="text" name="booking_id" placeholder="Booking ID" required onChange={handleChange} />
-      <input type="number" name="rating" placeholder="Rating (1-5)" min="1" max="5" required onChange={handleChange} />
-      <textarea name="comment" placeholder="Your review" required onChange={handleChange}></textarea>
-      <input type="date" name="date" required onChange={handleChange} />
-      <button type="submit">Submit Review</button>
+      <h4>Submit Review</h4>
+      <input
+        type="number"
+        name="rating"
+        placeholder="Rating (1-5)"
+        min="1"
+        max="5"
+        required
+        onChange={handleChange}
+      />
+      <textarea
+        name="comment"
+        placeholder="Your review"
+        required
+        onChange={handleChange}
+      ></textarea>
+      <input
+        type="date"
+        name="date"
+        value={form.date}
+        readOnly 
+      />
+      <button type="submit">Submit</button>
     </form>
   );
 }

@@ -9,7 +9,7 @@ function Dashboard() {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    navigate('/login');
+    navigate('/');
   };
 
 

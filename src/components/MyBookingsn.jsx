@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import api from '../api';
+import ReviewForm from './ReviewForm';
 
 function MyBookings() {
   const [bookings, setBookings] = useState([]);
+  const [reviewedBookings, setReviewedBookings] = useState([]);
+
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -15,8 +18,20 @@ function MyBookings() {
       }
     };
 
+    const fetchReviews = async () => {
+      try {
+        const res = await api.get('/reviews');
+        const reviewed = res.data.map(r => r.booking_id);
+        setReviewedBookings(reviewed);
+      } catch (err) {
+        console.error('Failed to fetch reviews:', err);
+      }
+    };
+
     fetchBookings();
+    fetchReviews();
   }, []);
+
 
   const cancelBooking = async (bookingId) => {
     const confirmCancel = window.confirm("Are you sure you want to cancel this booking?");
@@ -32,6 +47,9 @@ function MyBookings() {
     }
   };
 
+  const markAsReviewed = (bookingId) => {
+    setReviewedBookings([...reviewedBookings, bookingId]);
+  };
 
   return (
     <div>
@@ -46,6 +64,11 @@ function MyBookings() {
             <p><strong>Check-out:</strong> {b.check_out_date}</p>
             <p><strong>Total:</strong> ₹{b.total_amt}</p>
             <button onClick={()=>cancelBooking(b.booking_id)}>Cancel Booking</button>
+            {!reviewedBookings.includes(b.booking_id) ? (
+              <ReviewForm bookingId={b.booking_id} onSuccess={() => markAsReviewed(b.booking_id)} />
+            ) : (
+              <p style={{ color: 'green' }}>✅ Review submitted</p>
+            )}
           </div>
         ))
       )}

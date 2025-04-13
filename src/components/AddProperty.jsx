@@ -21,7 +21,7 @@ function AddProperty() {
     try {
       await api.post('/properties', form);
       alert('Property added successfully!');
-      navigate('/dashboard'); // Or any other route you want to redirect to
+      navigate('/dashboard'); 
     } catch (err) {
       console.error('Error adding property:', err);
       alert('Failed to add property.');

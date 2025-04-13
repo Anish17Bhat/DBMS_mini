@@ -4,7 +4,7 @@ import Dashboard from './pages/Dashboard';
 import Login from './components/Login';
 import Register from './components/Register';
 import AddProperty from './components/AddProperty';
-import EditProperty from './components/EditProperty'; // ✅ Import it here
+import EditProperty from './components/EditProperty'; 
 import Booking from './components/BookingForm';
 import Review from './components/ReviewForm';
 import MyBookings from './components/MyBookingsn';
@@ -18,8 +18,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/add-property" element={<AddProperty />} />
-        <Route path="/edit-property/:id" element={<EditProperty />} /> {/* ✅ Edit route */}
-        <Route path="/my-bookings" element={<MyBookings />} /> {/* ✅ Edit route */}
+        <Route path="/edit-property/:id" element={<EditProperty />} />
+        <Route path="/my-bookings" element={<MyBookings />} />
         <Route path="/booking/:propertyId" element={<Booking />} />
         <Route path="/review/:bookingId" element={<Review />} />
       </Routes>
