@@ -18,7 +18,21 @@ router.post('/', authenticateToken, authorizeRole("guest"), (req, res) => {
 // List bookings for logged in user
 router.get('/', authenticateToken, (req, res) => {
   const user_id = req.user.user_id;
-  db.query('SELECT * FROM booking WHERE user_id = ?', [user_id], (err, results) => {
+
+  const sql = `
+    SELECT 
+      b.booking_id,
+      b.property_id,
+      p.title AS property_title,
+      b.check_in_date,
+      b.check_out_date,
+      b.total_amt
+    FROM booking b
+    JOIN property p ON b.property_id = p.property_id
+    WHERE b.user_id = ?
+  `;
+
+  db.query(sql, [user_id], (err, results) => {
     if (err) return res.status(500).send(err);
     res.send(results);
   });

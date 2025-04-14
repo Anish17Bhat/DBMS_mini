@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from '../api';
 import ReviewForm from './ReviewForm';
+import './Styles/MyBookings.css';
 
 function MyBookings() {
   const [bookings, setBookings] = useState([]);
@@ -52,13 +53,15 @@ function MyBookings() {
   };
 
   return (
-    <div>
-      <h2>My Bookings</h2>
+    <>
+    <h2 className='heading'>My Bookings</h2>
+    <div className="my-bookings-container">
       {bookings.length === 0 ? (
         <p>No bookings yet.</p>
       ) : (
         bookings.map((b) => (
-          <div key={b.booking_id} style={{ border: '1px solid #ccc', padding: '10px', margin: '10px 0' }}>
+          <div key={b.booking_id} className="booking-card" style={{ border: '1px solid #ccc', padding: '10px', margin: '10px 0' }}>
+            <p><strong>Property:</strong> {b.property_title}</p>
             <p><strong>Property ID:</strong> {b.property_id}</p>
             <p><strong>Check-in:</strong> {b.check_in_date}</p>
             <p><strong>Check-out:</strong> {b.check_out_date}</p>
@@ -73,6 +76,7 @@ function MyBookings() {
         ))
       )}
     </div>
+      </>
   );
 }
 

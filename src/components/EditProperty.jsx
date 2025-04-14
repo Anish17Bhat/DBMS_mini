@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../api';
+import './Styles/AddProperty.css'
+
 
 function EditProperty() {
   const { id } = useParams();
@@ -42,7 +44,7 @@ function EditProperty() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="add-property-form">
       <h2>Edit Property</h2>
       <input type="text" name="title" value={form.title} onChange={handleChange} placeholder="Title" required />
       <input type="text" name="location" value={form.location} onChange={handleChange} placeholder="Location" required />

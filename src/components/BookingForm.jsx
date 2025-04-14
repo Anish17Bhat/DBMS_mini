@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import api from '../api';
+import './Styles/BookingForm.css'
 
 function BookingForm() {
   const { propertyId } = useParams();
@@ -100,7 +101,7 @@ function BookingForm() {
         <div className="reviews-section">
           <h3>Reviews for this Property</h3>
           {reviews.map((r, i) => (
-            <div key={i} style={{ border: '1px solid #ccc', padding: '10px', margin: '10px 0' }}>
+            <div key={i} style={{ border: '1px solid #ccc', padding: '10px', margin: '10px 0' }} className="review-card">
               <p><strong>User:</strong> {r.user_name}</p>
               <p><strong>Rating:</strong> {r.rating} ⭐</p>
               <p><strong>Comment:</strong> {r.comment}</p>

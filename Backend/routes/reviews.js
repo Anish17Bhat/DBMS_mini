@@ -44,13 +44,16 @@ module.exports = router;
 router.get('/property/:propertyId', (req, res) => {
   const propertyId = req.params.propertyId;
   const sql = `
-    SELECT r.*, u.name AS user_name
-    FROM review r
-    JOIN booking_review br ON r.review_id = br.review_id
-    JOIN booking b ON br.booking_id = b.booking_id
-    JOIN users u ON b.user_id = u.user_id
-    WHERE b.property_id = ?
-  `;
+  SELECT 
+    r.*, 
+    u.name AS user_name, 
+    DATE_FORMAT(br.date, '%Y-%m-%d') AS date
+  FROM review r
+  JOIN booking_review br ON r.review_id = br.review_id
+  JOIN booking b ON br.booking_id = b.booking_id
+  JOIN users u ON b.user_id = u.user_id
+  WHERE b.property_id = ?
+`;
 
   db.query(sql, [propertyId], (err, results) => {
     if (err) return res.status(500).send({ message: 'Error fetching reviews', error: err });

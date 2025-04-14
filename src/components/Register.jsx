@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
+import './Styles/login.css'
 
 function Register() {
   const [form, setForm] = useState({
@@ -30,14 +31,14 @@ function Register() {
   };
 
   return (
-    <form onSubmit={handleRegister}>
-      <h2>Register</h2>
-      <input type="text" name="name" placeholder="Name" required onChange={handleChange} />
-      <input type="email" name="email" placeholder="Email" required onChange={handleChange} />
-      <input type="text" name="phone" placeholder="Phone" required onChange={handleChange} />
-      <input type="password" name="password" placeholder="Password" required onChange={handleChange} />
+    <form onSubmit={handleRegister} id='LoginForm'>
+      <h2 className='heading2'>Register</h2>
+      <input type="text" name="name" placeholder="Name" required onChange={handleChange} className='formInput'/>
+      <input type="email" name="email" placeholder="Email" required onChange={handleChange} className='formInput'/>
+      <input type="text" name="phone" placeholder="Phone" required onChange={handleChange} className='formInput'/>
+      <input type="password" name="password" placeholder="Password" required onChange={handleChange} className='formInput'/>
       
-      <select name="role" value={form.role} onChange={handleChange}>
+      <select name="role" value={form.role} onChange={handleChange} className='formInput'>
         <option value="user">User</option>
         <option value="host">Host</option>
       </select>

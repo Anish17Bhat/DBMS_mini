@@ -1,7 +1,7 @@
 import { Link,useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import api from '../api';
-
+import './Dashboard.css'
 function Dashboard() {
   const [user, setUser] = useState(null);
   const [properties, setProperties] = useState([]);
@@ -47,14 +47,17 @@ function Dashboard() {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>Dashboard</h2>
-      <button onClick={handleLogout}>Logout</button>
+    <>
+      <div className="DashLog">
+        <h2>Dashboard</h2>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
+    <div style={{ padding: '20px' }} className='dashContent'>
       {user ? (
         <>
-          <p><strong>Welcome, {user.name}</strong></p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Role:</strong> {user.role}</p>
+          <p className='welcome'><strong>Welcome, {user.name}</strong></p>
+          <p className='welcome'><strong>Email:</strong> {user.email}</p>
+          <p className='welcome'><strong>Role:</strong> {user.role}</p>
 
           {/* HOST SECTION */}
           {user.role === 'host' && (
@@ -66,7 +69,7 @@ function Dashboard() {
                 <p>You haven't added any properties yet.</p>
               ) : (
                 properties.map((property) => (
-                  <div key={property.property_id} style={{ border: '1px solid gray', padding: '10px', marginBottom: '10px' }}>
+                  <div key={property.property_id} style={{ border: '1px solid gray', padding: '10px', marginBottom: '10px' }} className="propertyCard">
                     <h4>{property.title}</h4>
                     <p>{property.location}</p>
                     <p>{property.description}</p>
@@ -91,7 +94,7 @@ function Dashboard() {
                 <p>No properties available to book.</p>
               ) : (
                 properties.map((property) => (
-                  <div key={property.property_id} style={{ border: '1px solid gray', padding: '10px', marginBottom: '10px' }}>
+                  <div key={property.property_id} style={{ border: '1px solid gray', padding: '10px', marginBottom: '10px' }} className="propertyCard">
                     <h4>{property.title}</h4>
                     <p>{property.location}</p>
                     <p>{property.description}</p>
@@ -109,6 +112,7 @@ function Dashboard() {
         <p>Loading...</p>
       )}
     </div>
+    </>
   );
 }
 

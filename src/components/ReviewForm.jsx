@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import api from '../api';
+import './Styles/ReviewForm.css'
 
 function ReviewForm({ bookingId, onSuccess }) {
   const [form, setForm] = useState({
@@ -33,7 +34,7 @@ function ReviewForm({ bookingId, onSuccess }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="review-form">
       <h4>Submit Review</h4>
       <input
         type="number"

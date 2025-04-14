@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
+import './Styles/AddProperty.css'
 
 function AddProperty() {
   const [form, setForm] = useState({
@@ -29,7 +30,7 @@ function AddProperty() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="add-property-form">
       <h2>Add Property</h2>
       <input type="text" name="title" placeholder="Title" required onChange={handleChange} />
       <input type="text" name="location" placeholder="Location" required onChange={handleChange} />
