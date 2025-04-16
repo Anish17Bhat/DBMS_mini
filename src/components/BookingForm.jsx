@@ -13,6 +13,13 @@ function BookingForm() {
 
   const [property, setProperty] = useState(null);
   const [reviews, setReviews] = useState([]);
+  const todayDate = new Date().toISOString().split('T')[0];
+
+  const nextDay = (dateStr) => {
+    const date = new Date(dateStr);
+    date.setDate(date.getDate() + 1);
+    return date.toISOString().split('T')[0];
+  };
 
   // Fetch property details
   useEffect(() => {
@@ -77,6 +84,7 @@ function BookingForm() {
           name="check_in_date"
           required
           onChange={handleChange}
+          min={todayDate}
         />
 
         <label>Check-out Date:</label>
@@ -85,6 +93,7 @@ function BookingForm() {
           name="check_out_date"
           required
           onChange={handleChange}
+          min={form.check_in_date ? nextDay(form.check_in_date) : todayDate}
         />
 
         <label>Total Amount (₹):</label>

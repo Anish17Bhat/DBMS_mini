@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
 import './Styles/login.css'
@@ -20,6 +20,14 @@ function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    if(form.password.length < 8){
+      alert('Password must be atleast 8 characters long');
+      return;
+    } 
+    else if(form.phone.length !== 10 || isNaN(form.phone)){
+      alert('Invalid number');
+      return;
+    }
     try {
       await api.post('/users/register', form);
       alert('Registration successful');

@@ -33,6 +33,10 @@ function EditProperty() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(form.price <= 0){
+      alert('Price is invlaid');
+      return
+    }
     try {
       await api.put(`/properties/${id}`, form);
       alert('Property updated successfully');

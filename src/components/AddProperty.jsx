@@ -19,6 +19,10 @@ function AddProperty() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(form.price <= 0){
+      alert('Price is invlaid');
+      return
+    }
     try {
       await api.post('/properties', form);
       alert('Property added successfully!');
