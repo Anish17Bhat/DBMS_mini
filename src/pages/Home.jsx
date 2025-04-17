@@ -4,7 +4,7 @@ import './Home.css'
 function Home() {
   return (
     <div className='homeContainer'>
-      <h1 className='heading1'>Welcome to Vacation Booking</h1>
+      <h1 className='heading1'>Welcome to RoamEase</h1>
       <p>Find the best vacation properties or become a host today.</p>
       <div className="RLbtns">
       <Link to="/login"><button>Login</button></Link>
