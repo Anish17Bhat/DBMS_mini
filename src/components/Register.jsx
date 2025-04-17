@@ -20,14 +20,19 @@ function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    if(form.password.length < 8){
-      alert('Password must be atleast 8 characters long');
+    const { password, phone } = form;
+    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&^])[A-Za-z\d@$!%*?#&^]{8,}$/;
+
+    if (!strongPasswordRegex.test(password)) {
+      alert('Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.');
       return;
     } 
-    else if(form.phone.length !== 10 || isNaN(form.phone)){
+  
+    if (phone.length !== 10 || isNaN(phone)) {
       alert('Invalid number');
       return;
     }
+  
     try {
       await api.post('/users/register', form);
       alert('Registration successful');
