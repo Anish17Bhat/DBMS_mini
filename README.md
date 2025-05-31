@@ -81,7 +81,7 @@ A full-stack web application that enables users to book vacation properties and 
 
 ## 🤝 Contributors
 
-- [Your Name](https://github.com/Anish17Bhat)
+- [Anish Bhat](https://github.com/Anish17Bhat)
 - Cherish
 ---
 
